@@ -1,4 +1,5 @@
 # ⭐ Simply Game
+[![PyPI Downloads](https://static.pepy.tech/badge/simplygame)](https://pepy.tech/projects/simplygame)
 
 **A module to create games and animations more easily**
 
@@ -46,11 +47,24 @@ while running:
         running = False #And close while loop
 ```
 
+### Load image into memory
+Store image into a variable
+```python
+SG.load_image(path)
+```
+
+For example:
+```python
+img = SG.load_image('example.png')
+```
+Now, 'example.png' is stored in memory and accessible with the variable 'img'
+
 ### Events
 Several events are possible to be recovered:
 - 'exit' : If user wants to close the program
 - 'pressed': If user press a key
 - 'released': If user release a key
+- 'mouse_motion': If user move the mouse
 
 First Step: Create a variable to store the event
 ```python
@@ -70,6 +84,30 @@ while running:
         running = False
     elif event == 'pressed':
         print('hello world')
+```
+
+### Key
+Return pressed or released key
+
+```python
+SG.recover_key()
+```
+
+### Mouse position
+Returns the mouse position
+
+```python
+SG.mouse_position()
+```
+
+Return mouse's x position only:
+```python
+SG.mouse_x()
+```
+
+Return mouse's y position only:
+```python
+SG.mouse_y()
 ```
 
 ### Update
@@ -93,7 +131,7 @@ SG.window_fill((255,192,203)) #Have a pink window
 ⚠️ **It is better to create a variable to avoid parentheses problems:**
 ```python
 PINK = (255,192,203) #Declare a variable with color
-SG.window_fill(*PINK) #Use variable to have a pink window
+SG.window_fill(PINK) #Use variable to have a pink window
 ```
 
 ### FPS
@@ -116,7 +154,7 @@ SG.draw_rect(x,y,width,height,color)
 ➡️*Example: We want a square that is 50px by 50px. Blue in color.*
 ```python
 BLUE = (0,0,255)
-SG.draw_rect(0,0,50,50,*BLUE)
+SG.draw_rect(0,0,50,50,BLUE)
 ```
 
 ### Draw a circle
@@ -130,5 +168,20 @@ SG.draw_circle(x,y,radius,color)
 ➡️*Example: We want a 100px by 100px circle in the middle of the screen. It's red.*
 ```python
 RED = (255,0,0)
-SG.draw_circle(400,300,100,*RED*)
+SG.draw_circle(400,300,100,RED)
 ```
+
+### Draw a pixel
+To draw a circle, you need the x,y position of its center, its radius and its color
+
+```python
+SG.draw_pixel(x,y,color)
+```
+
+### Draw a image
+To draw a image in the same folder of the current file, after import it
+
+```python
+SG.draw_image(img, x, y, transparency)
+```
+🚨Transparency = 255 by default
