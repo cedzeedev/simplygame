@@ -1,7 +1,7 @@
 """
 Created 01/07/2025 (FR) | 07/01/2025 (EN)
 """
-__version__ = "1.0"
+__version__ = "1.0.7"
 import pygame
 from pygame import *
 pygame.init()
@@ -16,7 +16,6 @@ def create_window(windowName, width, height):
     window = pygame.display.set_mode([width, height])
     pygame.display.set_caption(windowName)
     window.fill((255, 255, 255))
-    globals()['running'] = True
     update()
 
 
@@ -31,10 +30,6 @@ def reset_window():
 def window_fill(color):
     window.fill(color)
 
-def game_stop():
-    """Stop game, close window"""
-    global running
-    running = False
 
 def tick(fps):
     """Limit frame rate"""
@@ -53,6 +48,9 @@ def draw_circle(x,y,radius,color):
     """Draw a circle"""
     pygame.draw.circle(window, color, (x,y), radius)
 
+def draw_pixel(x,y,color):
+    """Draw a pixel"""
+    pygame.draw.rect(window, color, (x,y,1,1))
 
 
 ##Events
@@ -76,6 +74,9 @@ def recover_event():
     
     elif event.type == pygame.KEYUP:
         return 'released'
+    
+    elif event.type == pygame.MOUSEMOTION:
+        return 'mouse_motion'
 
     return None
 
@@ -85,5 +86,27 @@ def recover_key():
     character = pygame.key.name(event.key)
     return character
 
-def is_pressed():
-   return pygame.key.get_pressed()
+
+def mouse_x():
+    global event
+    """Return mouse's x position"""
+    return event.pos[0]
+
+def mouse_y():
+    global event
+    """Return mouse's y position"""
+    return event.pos[1]
+
+def mouse_position():
+    """Return mouse's position"""
+    return mouse_x(), mouse_y()
+
+def load_image(path):
+    if pygame.display.get_init==True:
+        return pygame.image.load(path).convert_alpha()
+    else:
+        return pygame.image.load(path)
+    
+def draw_image(img, x, y, transparency):
+    if transparency == 255:
+        window.blit(img,(x,y))
